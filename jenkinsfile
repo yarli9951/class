@@ -1,0 +1,73 @@
+pipeline
+{
+  agent any
+  environment {
+  PATH = "${PATH}:${getTerraformpath()}"
+  }
+
+
+parameters {
+
+booleanParam(name: 'checkout', defaultValue: true, description: '')
+booleanParam(name: 'build', defaultValue: true, description: '')
+choice(name: 'VERSION', choices: ['1.1', '1.2', '2.0'], description: '')
+string(name: 'Ticket_no', defaultValue: 'staging', description: '')
+booleanParam(name: 'nonregression', defaultValue: true, description: '')
+
+}
+  stages {
+
+
+     stage ('checkout')
+     {
+       when {
+            expression { checkout ==~ true }
+
+            }
+
+       steps {
+         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/yarli9951/sample']]])
+     }
+     }
+
+     stage ('build')
+     {
+          when {
+              expression { build ==~ true }
+
+              }
+
+     steps {
+        script {
+          sh 'echo "this is build stage"'
+              }
+           }
+
+        }
+
+        stage('nonregression')
+        {
+            when {
+                expression { nonregression ==~ true }
+            }
+            steps
+            {
+              sh 'echo "this is nonregression"'
+            }
+
+        }
+
+        stage ('Terraform init')
+        {
+          steps {
+            sh 'terraform init'
+          }
+        }
+  }
+
+  def getTerraformpath(){
+    def tfHome = tool name: 'Terraform', type: 'terraform'
+    return tfHome  
+  }
+}
+
