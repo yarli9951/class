@@ -26,7 +26,7 @@ booleanParam(name: 'nonregression', defaultValue: true, description: '')
             }
 
        steps {
-         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/yarli9951/sample']]])
+         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/yarli9951/class']]])
      }
      }
 
