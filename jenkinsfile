@@ -65,9 +65,12 @@ booleanParam(name: 'nonregression', defaultValue: true, description: '')
         }
   }
 
-  def getTerraformpath(){
-    def tfHome = tool name: 'Terraform', type: 'terraform'
-    return tfHome  
+
   }
 }
 
+
+def getTerraformpath(){
+  def tfHome = tool name: 'Terraform', type: 'terraform'
+  return tfHome
+}
