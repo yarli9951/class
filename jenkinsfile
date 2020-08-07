@@ -63,7 +63,7 @@ booleanParam(name: 'nonregression', defaultValue: true, description: '')
             sh 'terraform init'
           }
         }
-  }
+  
 
 
   }
