@@ -61,6 +61,7 @@ booleanParam(name: 'nonregression', defaultValue: true, description: '')
         {
           steps {
             sh 'terraform init'
+			sh 'terraform apply -auto-approve'
           }
         }
   
