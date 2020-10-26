@@ -1,0 +1,56 @@
+  
+	pipeline {
+	
+           agent any
+           parameters {
+                string(name: 'Version', defaultValue: '1.0', description: 'Please provide version')
+           }
+	
+	stages {
+	 
+	stage('Checkout')
+	{
+		steps
+		{
+		
+			checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/yarli9951/sample/']]])
+			
+		}
+	}
+	stage('Build')
+	{
+		steps
+		{
+					sh 'cd /var/lib/jenkins/workspace/CI-PIPELINE/my-app; mvn clean'
+			}
+		
+
+	}
+	stage('JUNIT')
+	{
+		steps
+		{
+					sh 'echo "This is a Junit stage"'
+			}
+		
+
+	}
+
+	stage('SonarQube')
+	{
+		steps
+		{
+					sh 'echo "This is a SonarQube Stage"'
+			}
+		
+
+	}
+
+
+
+
+    }
+
+
+
+}
