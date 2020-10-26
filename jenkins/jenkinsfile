@@ -46,6 +46,15 @@
 
 	}
 
+	stage('Deployment')
+	{
+		steps
+		{
+					sh 'echo "This is a Deployment Stage"'
+			}
+		
+
+	}
 
 
 
